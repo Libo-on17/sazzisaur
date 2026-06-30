@@ -1,0 +1,399 @@
+/* ============================================================================
+   DESIGN TOKENS — "Golden Hour, Pressed"
+   A single idea carried through: light fading from champagne gold into
+   dusk plum, like a flower pressed between the pages of a letter. One
+   signature — a hand-tied bouquet that grows from the floor of every
+   screen — does the talking. Everything else stays quiet on purpose.
+
+   Display   Fraunces (soft, characterful serif — used only for headlines)
+   Accent    Cormorant Garamond italic (the handwritten, intimate voice)
+   Body/UI   Jost (warm geometric sans — quiet workhorse)
+============================================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&family=Jost:wght@300;400;500;600&display=swap');
+
+:root{
+  --ink:        #2b1c2c;
+  --ink-soft:   #6c5468;
+  --cream:      #fbf5ec;
+  --paper:      #f7eee0;
+  --blush:      #f0cdd9;
+  --blush-deep: #d68aa3;
+  --rose:       #b6486c;
+  --rose-deep:  #8a3052;
+  --gold:       #c79a4d;
+  --gold-soft:  #e7cd9b;
+  --sage:       #7e9468;
+  --plum:       #7c6293;
+  --plum-deep:  #4f3a63;
+
+  --ease: cubic-bezier(.22,1,.36,1);
+  --ease-bounce: cubic-bezier(.34,1.45,.64,1);
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  min-height:100vh;
+  font-family:'Jost', sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse 70% 50% at 18% 12%, rgba(240,205,217,.55), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 86% 8%, rgba(124,98,147,.22), transparent 60%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(199,154,77,.20), transparent 60%),
+    linear-gradient(160deg, #fdf3e9 0%, #fbeae5 30%, #f4e7ee 58%, #ece3f2 80%, #fbf0e2 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+  position:relative;
+  cursor:default;
+}
+
+/* faint paper grain — warmth instead of busy light rays */
+body::before{
+  content:'';
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  opacity:.5; mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.025 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* gentle vignette */
+body::after{
+  content:'';
+  position:fixed; inset:0; z-index:1; pointer-events:none;
+  background:radial-gradient(ellipse at 50% 50%, transparent 58%, rgba(43,28,44,.10) 100%);
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* ============================================================================
+   AMBIENT LAYERS — sparse, slow, purposeful
+============================================================================ */
+.bokeh{ position:fixed; border-radius:50%; filter:blur(46px); pointer-events:none; z-index:0; opacity:.20; will-change:transform; }
+.bokeh-1{ width:240px; height:240px; background:radial-gradient(circle,var(--blush),transparent 70%); top:8%; left:4%; animation:drift 22s var(--ease) infinite; }
+.bokeh-2{ width:300px; height:300px; background:radial-gradient(circle,var(--plum),transparent 70%); top:55%; right:4%; animation:drift 26s var(--ease) infinite 3s; }
+.bokeh-3{ width:220px; height:220px; background:radial-gradient(circle,var(--gold-soft),transparent 70%); bottom:6%; left:22%; animation:drift 24s var(--ease) infinite 6s; }
+@keyframes drift{
+  0%,100%{ transform:translate(0,0) scale(1); }
+  50%{ transform:translate(34px,-26px) scale(1.07); }
+}
+
+.petal{
+  position:fixed; width:11px; height:11px; opacity:0; pointer-events:none; z-index:1;
+  background:radial-gradient(ellipse at 30% 28%, #fff3f7, var(--blush) 55%, var(--blush-deep) 100%);
+  border-radius:50% 0 50% 50%;
+  box-shadow:0 0 5px rgba(214,138,163,.4);
+  animation:fall linear forwards;
+  will-change:transform,opacity;
+}
+@keyframes fall{
+  0%{ transform:translateY(-80px) translateX(0) rotate(0deg); opacity:0; }
+  10%{ opacity:.7; }
+  88%{ opacity:.45; }
+  100%{ transform:translateY(105vh) translateX(-26px) rotate(420deg); opacity:0; }
+}
+
+.firefly{
+  position:fixed; width:5px; height:5px; border-radius:50%; pointer-events:none; z-index:1;
+  background:radial-gradient(circle,#fff6da,var(--gold));
+  box-shadow:0 0 6px 2px rgba(199,154,77,.5);
+  opacity:0; animation:glow 9s var(--ease) infinite;
+  will-change:transform,opacity;
+}
+@keyframes glow{
+  0%{ transform:translate(0,0); opacity:0; }
+  20%{ opacity:.8; }
+  50%{ transform:translate(70px,-50px); opacity:.3; }
+  80%{ opacity:.85; }
+  100%{ transform:translate(20px,10px); opacity:0; }
+}
+
+/* ============================================================================
+   SCREENS
+============================================================================ */
+.screen{
+  min-height:100vh; display:none; flex-direction:column; align-items:center; justify-content:center;
+  position:relative; z-index:10; padding:2.2rem; overflow:hidden;
+  opacity:0; transform:scale(.96) translateY(14px); filter:blur(8px);
+  transition:opacity .7s var(--ease), transform .7s var(--ease), filter .7s var(--ease);
+}
+.screen.active{ opacity:1; transform:scale(1) translateY(0); filter:blur(0); }
+
+/* ============================================================================
+   TYPE
+============================================================================ */
+.eyebrow{
+  display:inline-flex; align-items:center; gap:.55rem;
+  font-family:'Jost',sans-serif; font-size:.72rem; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--rose-deep);
+  padding:.6rem 1.4rem; border-radius:999px; margin-bottom:1.7rem;
+  background:rgba(255,255,255,.5); backdrop-filter:blur(10px);
+  border:1px solid rgba(182,72,108,.22);
+  animation:settle .8s var(--ease-bounce) both;
+}
+.eyebrow .dot{ width:5px; height:5px; border-radius:50%; background:var(--gold); }
+
+@keyframes settle{
+  from{ opacity:0; transform:translateY(-22px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.heading{
+  font-family:'Fraunces',serif; font-weight:500; font-style:italic;
+  font-size:clamp(2.4rem,7vw,4.1rem); line-height:1.08; text-align:center;
+  color:var(--ink); margin-bottom:.7rem; letter-spacing:-.01em;
+  animation:settle .9s var(--ease-bounce) .05s both;
+  position:relative;
+}
+.heading--sm{ font-size:clamp(1.9rem,5.5vw,2.7rem); }
+.heading--md{ font-size:clamp(2.1rem,5.5vw,3rem); }
+.heading em{
+  font-style:normal; font-weight:600;
+  background:linear-gradient(100deg,var(--rose-deep),var(--rose) 45%,var(--plum) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.heading::after{
+  content:''; position:absolute; inset:-22px -10px; z-index:-1;
+  background:radial-gradient(ellipse at center, rgba(240,205,217,.45), transparent 70%);
+  filter:blur(18px); opacity:.7;
+}
+
+.sub{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500;
+  font-size:1.32rem; color:var(--ink-soft); text-align:center; margin-bottom:2.6rem;
+  animation:settle 1s var(--ease-bounce) .12s both;
+}
+
+.tap-hint{
+  margin-top:2.1rem; font-family:'Jost',sans-serif; font-size:.78rem; font-weight:500;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--rose-deep); opacity:.55;
+  animation:breathe 2.6s ease-in-out infinite;
+}
+@keyframes breathe{ 0%,100%{ opacity:.4; } 50%{ opacity:.85; } }
+
+/* ============================================================================
+   GIFT BOX  — redrawn: ribbon crosses the box, bow sits proud of the lid
+============================================================================ */
+#screen-box{
+  background:radial-gradient(ellipse at 28% 18%, rgba(255,255,255,.45), transparent 55%);
+}
+.gift-wrapper{
+  cursor:pointer; user-select:none; position:relative;
+  filter:drop-shadow(0 14px 30px rgba(138,48,82,.18));
+  animation:hover-y 4s var(--ease) infinite;
+  transition:transform .5s var(--ease-bounce), filter .5s var(--ease);
+}
+.gift-wrapper:hover{ transform:translateY(-10px) scale(1.04); filter:drop-shadow(0 22px 40px rgba(138,48,82,.26)); }
+.gift-wrapper:active{ transform:translateY(-3px) scale(.99); }
+@keyframes hover-y{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-12px); } }
+
+.gift-box-svg{ width:clamp(190px,38vw,260px); }
+.gift-wrapper .lid-group{ transform-origin:103px 96px; transition:transform .45s var(--ease-bounce); }
+.gift-wrapper:hover .lid-group{ transform:translateY(-6px) rotate(-4deg); }
+
+/* ============================================================================
+   ENVELOPE — redrawn: deeper flap fold, wax seal with monogram
+============================================================================ */
+#screen-mail{
+  background:radial-gradient(ellipse at 72% 22%, rgba(255,255,255,.4), transparent 55%);
+}
+.envelope-wrap{
+  cursor:pointer; user-select:none; position:relative;
+  filter:drop-shadow(0 14px 30px rgba(124,98,147,.22));
+  animation:hover-y 4.4s var(--ease) infinite .3s;
+  transition:transform .5s var(--ease-bounce), filter .5s var(--ease);
+}
+.envelope-wrap:hover{ transform:translateY(-9px) scale(1.035); filter:drop-shadow(0 20px 36px rgba(124,98,147,.3)); }
+.envelope-wrap:active{ transform:translateY(-3px) scale(.99); }
+.envelope-svg{ width:clamp(190px,40vw,270px); }
+.env-flap{ transform-origin:110px 56px; transition:transform .5s var(--ease-bounce); }
+.envelope-wrap:hover .env-flap{ transform:rotateX(18deg) translateY(-2px); }
+.env-seal{ transition:transform .4s var(--ease-bounce); transform-origin:110px 95px; }
+.envelope-wrap:hover .env-seal{ transform:scale(1.08) rotate(-4deg); }
+
+/* ============================================================================
+   MESSAGES
+============================================================================ */
+#screen-messages{
+  background:radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.4), transparent 55%);
+  align-items:stretch; padding:3.6rem 1.4rem 4.6rem;
+}
+.messages-header{ text-align:center; margin-bottom:3rem; }
+.messages-header .eyebrow{ background:rgba(255,255,255,.55); }
+
+.bento{
+  display:grid; gap:1.6rem; max-width:980px; width:100%; margin:0 auto;
+  grid-template-columns:repeat(6,1fr);
+}
+.card{
+  position:relative; border-radius:20px; padding:2.3rem;
+  background:rgba(255,255,255,.58);
+  backdrop-filter:blur(18px) saturate(150%); -webkit-backdrop-filter:blur(18px) saturate(150%);
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:0 8px 28px rgba(138,48,82,.10), inset 0 1px 0 rgba(255,255,255,.6);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease), background .5s var(--ease);
+  animation:rise .7s var(--ease-bounce) backwards;
+}
+.card::before{
+  content:''; position:absolute; inset:0; border-radius:20px; z-index:-1;
+  padding:1px;
+  background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(199,154,77,.35) 50%, rgba(255,255,255,.2));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+  opacity:.8;
+}
+.card:hover{ transform:translateY(-8px); box-shadow:0 18px 40px rgba(138,48,82,.16); background:rgba(255,255,255,.74); }
+
+@keyframes rise{
+  from{ opacity:0; transform:translateY(34px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+.card--us{ grid-column:span 3; }
+.card--pride{ grid-column:span 3; }
+.card--main{ grid-column:span 6; background:linear-gradient(155deg, rgba(240,205,217,.65), rgba(255,255,255,.5)); }
+.card--main::before{ background:linear-gradient(135deg, rgba(255,255,255,.9), rgba(182,72,108,.35) 50%, rgba(255,255,255,.2)); }
+
+.card .icon{ font-size:1.9rem; display:block; margin-bottom:.9rem; }
+.card .label{
+  font-family:'Jost',sans-serif; font-size:.7rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--rose-deep); margin-bottom:.7rem; opacity:.75;
+}
+.card .headline{
+  font-family:'Fraunces',serif; font-weight:500; font-size:1.4rem; line-height:1.4; color:var(--ink); margin-bottom:.9rem;
+}
+.card .body{
+  font-family:'Jost',sans-serif; font-weight:300; font-size:1.02rem; line-height:1.85; color:var(--ink-soft);
+}
+
+.closing{
+  max-width:600px; margin:3.4rem auto 0; text-align:center; padding:2.6rem 1rem 0;
+  position:relative; animation:rise .8s var(--ease-bounce) .5s backwards;
+}
+.closing::before{
+  content:''; position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:64px; height:1px; background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.closing p{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500;
+  font-size:1.5rem; line-height:1.8; color:var(--plum-deep); margin-bottom:1.1rem;
+}
+.closing .sign{
+  font-family:'Jost',sans-serif; font-size:.82rem; letter-spacing:.18em; text-transform:uppercase; color:var(--rose-deep); opacity:.8;
+}
+
+.closing-btn{ text-align:center; }
+.btn-back{
+  margin-top:3rem; background:transparent; border:1px solid rgba(124,98,147,.4); color:var(--plum-deep);
+  padding:.8rem 2rem; border-radius:999px; cursor:pointer; font-family:'Jost',sans-serif;
+  font-size:.78rem; letter-spacing:.18em; text-transform:uppercase; font-weight:500;
+  transition:background .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease-bounce);
+}
+.btn-back:hover{ background:var(--plum-deep); color:#fff; border-color:var(--plum-deep); transform:translateY(-2px); }
+.btn-back:active{ transform:translateY(0); }
+
+@media (max-width:720px){
+  .card--us, .card--pride{ grid-column:span 6; }
+}
+
+/* ============================================================================
+   PARTICLE FX
+============================================================================ */
+.confetti-piece{
+  position:fixed; width:8px; height:8px; border-radius:2px; opacity:1; pointer-events:none; z-index:999;
+  animation:confetti-fall 2.4s var(--ease) forwards;
+}
+@keyframes confetti-fall{
+  0%{ opacity:1; transform:translate(0,0) rotate(0) scale(1); }
+  100%{ opacity:0; transform:translate(var(--tx,0px),100vh) rotate(540deg) scale(.5); }
+}
+.floating-heart{
+  position:fixed; font-size:1.3rem; pointer-events:none; z-index:2;
+  filter:drop-shadow(0 2px 5px rgba(138,48,82,.3));
+  animation:heart-float 3.6s var(--ease) forwards;
+}
+@keyframes heart-float{
+  0%{ opacity:.85; transform:translate(0,0) scale(1); }
+  100%{ opacity:0; transform:translate(24px,-110px) scale(.4); }
+}
+
+/* ============================================================================
+   SIGNATURE — painterly bouquet growing from the floor of every screen
+============================================================================ */
+@keyframes vine-grow{ from{ width:0; opacity:0; } 18%{ opacity:1; } to{ width:100%; opacity:1; } }
+.screen::after{
+  content:''; position:absolute; left:0; bottom:0; width:0; height:26px; z-index:0; pointer-events:none;
+  overflow:hidden; animation:vine-grow 2.2s var(--ease) .25s forwards;
+  background-image:
+    linear-gradient(var(--sage),var(--sage)),
+    repeating-radial-gradient(circle at 18px 18px, rgba(240,205,217,.7) 0 5px, transparent 5px 64px),
+    repeating-radial-gradient(circle at 46px 20px, rgba(126,148,104,.8) 0 4px, transparent 4px 64px);
+  background-size:100% 2px, 64px 26px, 64px 26px;
+  background-position:0 16px, 0 0, 0 0;
+  background-repeat:repeat-x;
+}
+
+@keyframes bouquet-grow{
+  0%{ transform:scaleY(0) scaleX(.9); opacity:0; }
+  60%{ opacity:1; }
+  100%{ transform:scaleY(1) scaleX(1); opacity:1; }
+}
+@keyframes bouquet-sway{
+  0%,100%{ transform:rotate(0deg); }
+  50%{ transform:rotate(1deg); }
+}
+
+/* painterly blooms built from soft layered blurred radial-gradients */
+.bouquet{
+  position:absolute; bottom:0; width:150px; height:175px; z-index:1; pointer-events:none;
+  transform-origin:bottom center;
+  animation:bouquet-grow 1.7s var(--ease-bounce) .45s both, bouquet-sway 7s ease-in-out infinite 2.2s;
+}
+.bouquet .stem{
+  position:absolute; width:3px; background:linear-gradient(var(--sage),#5f7a4c); border-radius:2px;
+}
+.bouquet .leaf{
+  position:absolute; width:20px; height:11px; background:var(--sage); border-radius:50% 50% 50% 0; opacity:.9;
+}
+.bouquet .bloom{
+  position:absolute; border-radius:50%; filter:blur(.3px);
+}
+.bouquet .ribbon{
+  position:absolute; width:22px; height:14px; background:var(--rose-deep); border-radius:3px 3px 8px 8px;
+  box-shadow:0 1px 3px rgba(0,0,0,.15);
+}
+
+#screen-box .bouquet{ left:6px; }
+#screen-mail .bouquet{ right:6px; }
+#screen-messages .bouquet{ left:2px; bottom:-4px; animation-delay:.6s,2.4s; }
+
+@media (max-width:520px){
+  .bouquet{ transform:scale(.66); transform-origin:bottom left; }
+  #screen-mail .bouquet{ transform-origin:bottom right; }
+}
+
+/* small companion sprig beside box / envelope */
+.sprig{
+  position:absolute; width:58px; height:88px; pointer-events:none; z-index:-1;
+  animation:bouquet-grow 1.4s var(--ease-bounce) .55s both, bouquet-sway 5.2s ease-in-out infinite 2s;
+  transform-origin:bottom center;
+}
+.gift-wrapper .sprig{ right:-34px; bottom:6px; }
+.envelope-wrap .sprig{ left:-34px; bottom:6px; }
+
+/* ============================================================================
+   FOCUS / ACCESSIBILITY
+============================================================================ */
+button:focus-visible, .gift-wrapper:focus-visible, .envelope-wrap:focus-visible{
+  outline:2px solid var(--plum-deep); outline-offset:4px; border-radius:10px;
+}
+
+.delay-1{ animation-delay:.05s; }
+.delay-2{ animation-delay:.18s; }
+.delay-3{ animation-delay:.32s; }

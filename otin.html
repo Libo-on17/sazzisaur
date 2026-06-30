@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bokeh bokeh-1"></div>
+<div class="bokeh bokeh-2"></div>
+<div class="bokeh bokeh-3"></div>
+<div id="petals"></div>
+<div id="fireflies"></div>
+
+<!-- ===== SCREEN 1: GIFT BOX ===== -->
+<div class="screen active" id="screen-box">
+  <span class="eyebrow"><span class="dot"></span> July 13, 2026</span>
+  <h1 class="heading">Happy Birthday,<br><em>My Love</em></h1>
+  <p class="sub">There's a little something here for you...</p>
+
+  <div class="gift-wrapper" id="giftBox" onclick="openBox()" tabindex="0" role="button" aria-label="Open gift box">
+    <svg class="gift-box-svg" viewBox="0 0 206 210" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="103" cy="196" rx="78" ry="9" fill="#8a3052" opacity=".08"/>
+      <rect x="22" y="92" width="162" height="100" rx="7" fill="#f0cdd9"/>
+      <rect x="22" y="92" width="162" height="100" rx="7" fill="url(#boxshade)"/>
+      <rect x="22" y="92" width="162" height="14" fill="#d68aa3" opacity=".5"/>
+      <g class="lid-group">
+        <rect x="14" y="62" width="178" height="34" rx="8" fill="#b6486c"/>
+        <rect x="14" y="62" width="178" height="34" rx="8" fill="url(#lidshade)"/>
+      </g>
+      <rect x="93" y="62" width="20" height="130" fill="#8a3052" opacity=".55"/>
+      <g class="lid-group">
+        <path d="M103 62 C 80 40, 58 44, 60 24 C 62 8, 88 8, 96 28 C 100 38, 103 50, 103 62 Z" fill="#c79a4d"/>
+        <path d="M103 62 C 126 40, 148 44, 146 24 C 144 8, 118 8, 110 28 C 106 38, 103 50, 103 62 Z" fill="#e7cd9b"/>
+        <circle cx="103" cy="60" r="9" fill="#8a3052"/>
+        <circle cx="103" cy="60" r="9" fill="none" stroke="#fff" stroke-width="1" opacity=".4"/>
+      </g>
+      <defs>
+        <linearGradient id="boxshade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".25"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".06"/>
+        </linearGradient>
+        <linearGradient id="lidshade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#fff" stop-opacity=".3"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".08"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg class="sprig" viewBox="0 0 58 88" aria-hidden="true">
+      <path d="M29 88 L29 30" stroke="#7e9468" stroke-width="2.5" fill="none"/>
+      <circle cx="29" cy="20" r="9" fill="#f0cdd9"/>
+      <circle cx="18" cy="32" r="7" fill="#7c6293" opacity=".85"/>
+      <circle cx="40" cy="34" r="7" fill="#c79a4d" opacity=".85"/>
+    </svg>
+    <p class="tap-hint">tap to open</p>
+  </div>
+</div>
+
+<!-- ===== SCREEN 2: ENVELOPE ===== -->
+<div class="screen" id="screen-mail">
+  <span class="eyebrow"><span class="dot"></span> A letter, just for you</span>
+  <h2 class="heading heading--sm">Open your <em>letter</em></h2>
+  <p class="sub">Inside the box was a special envelope...</p>
+
+  <div class="envelope-wrap" id="envelopeEl" onclick="openEnvelope()" tabindex="0" role="button" aria-label="Open envelope">
+    <svg class="envelope-svg" viewBox="0 0 220 156" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="110" cy="148" rx="92" ry="8" fill="#4f3a63" opacity=".08"/>
+      <rect x="10" y="38" width="200" height="112" rx="6" fill="#f7eee0"/>
+      <path d="M10 150 L92 96 L10 38 Z" fill="#efe1cd"/>
+      <path d="M210 150 L128 96 L210 38 Z" fill="#efe1cd"/>
+      <g class="env-flap">
+        <path d="M10 38 L110 100 L210 38 Z" fill="#f0e3d0" stroke="#dcc59f" stroke-width="1"/>
+      </g>
+      <g class="env-seal">
+        <circle cx="110" cy="95" r="15" fill="#b6486c"/>
+        <circle cx="110" cy="95" r="15" fill="url(#sealshade)"/>
+        <text x="110" y="101" text-anchor="middle" font-family="Fraunces, serif" font-style="italic" font-size="15" fill="#fbf5ec">S</text>
+      </g>
+      <defs>
+        <radialGradient id="sealshade" cx="35%" cy="30%" r="70%">
+          <stop offset="0" stop-color="#fff" stop-opacity=".35"/>
+          <stop offset="1" stop-color="#000" stop-opacity=".15"/>
+        </radialGradient>
+      </defs>
+    </svg>
+    <svg class="sprig" viewBox="0 0 58 88" aria-hidden="true">
+      <path d="M29 88 L29 30" stroke="#7e9468" stroke-width="2.5" fill="none"/>
+      <circle cx="29" cy="20" r="9" fill="#c79a4d"/>
+      <circle cx="18" cy="32" r="7" fill="#f0cdd9" opacity=".9"/>
+      <circle cx="40" cy="34" r="7" fill="#7c6293" opacity=".85"/>
+    </svg>
+    <p class="tap-hint">open your letter</p>
+  </div>
+</div>
+
+<!-- ===== SCREEN 3: MESSAGES ===== -->
+<div class="screen" id="screen-messages">
+  <div class="messages-header">
+    <span class="eyebrow"><span class="dot"></span> For you, today</span>
+    <h2 class="heading heading--md">Happy <em>Birthday</em></h2>
+  </div>
+
+  <div class="bento">
+    <div class="card card--us delay-1">
+      <span class="icon">🌱</span>
+      <p class="label">Us</p>
+      <p class="headline">Happy Birthday, Langga</p>
+      <p class="body">No matter what life brings, I want you to know that I'm always here for you. Through your good days and your difficult ones, through every challenge and every victory, you'll never have to face them alone. I'll always be cheering for you, supporting you, and believing in you. Thank you for letting me be part of your life. You mean so much to me, and I'll always be here whenever you need me.</p>
+    </div>
+
+    <div class="card card--pride delay-2">
+      <span class="icon">🫶</span>
+      <p class="label">From me to you</p>
+      <p class="headline">I am so incredibly proud of you.</p>
+      <p class="body">Not just today — every day. I see you. I see the late nights, the effort, the heart you put into everything. I see a woman who refuses to give up, and I am so grateful I get to stand beside her.</p>
+    </div>
+
+    <div class="card card--main delay-3">
+      <span class="icon">🎂</span>
+      <p class="label">Happy birthday</p>
+      <p class="headline">Today, you rest. You've earned every bit of this.</p>
+      <p class="body">Happy Birthday, Sazzi. ❤️ I don't really know the perfect words to say today, but I hope you know how much you mean to me. You've been through so much, and even though life hasn't always been easy on you, you still keep going. That's one of the many things I admire about you. Today, I just want you to slow down and enjoy your day. Forget the stress, the worries, and everything that's been weighing on your mind. You deserve a day where you can simply be happy. Thank you for being you. Thank you for letting me be part of your life. I hope this year brings you more peace, more smiles, and all the things you've been praying for. I'm always rooting for you. ❤️ Happy Birthday, my love.</p>
+    </div>
+  </div>
+
+  <div class="closing">
+    <p>"You've been through a lot, but you never let it stop you from moving forward. That's something I've always admired about you."</p>
+    <p class="sign">I'm so proud of you — happy birthday, again</p>
+  </div>
+
+  <div class="closing-btn">
+    <button class="btn-back" onclick="goBack()">Back to the beginning</button>
+  </div>
+</div>
+
+<script>
+  // ---------- petals ----------
+  const petalsEl = document.getElementById('petals');
+  function createPetal(){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.animationDuration = (9 + Math.random()*6) + 's';
+    p.style.width = p.style.height = (7 + Math.random()*6) + 'px';
+    petalsEl.appendChild(p);
+    setTimeout(()=>p.remove(), 16000);
+  }
+  for(let i=0;i<10;i++) setTimeout(createPetal, i*500);
+  setInterval(createPetal, 4200);
+
+  // ---------- fireflies (only the message screen) ----------
+  const firefliesEl = document.getElementById('fireflies');
+  let fireflyInterval = null;
+  function createFirefly(){
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random()*100 + 'vw';
+    f.style.top = Math.random()*100 + 'vh';
+    f.style.animationDuration = (8 + Math.random()*5) + 's';
+    firefliesEl.appendChild(f);
+    setTimeout(()=>f.remove(), 12000);
+  }
+  function startFireflies(){
+    if(fireflyInterval) return;
+    for(let i=0;i<5;i++) setTimeout(createFirefly, i*900);
+    fireflyInterval = setInterval(createFirefly, 5200);
+  }
+
+  // ---------- bouquet builder (painterly, layered) ----------
+  const bouquetPalette = {
+    blooms:[
+      {c:'#f0cdd9', sizes:[26,30,24]},
+      {c:'#7c6293', sizes:[20,18]},
+      {c:'#c79a4d', sizes:[16,14]},
+    ],
+    leaf:'#7e9468', ribbon:'#8a3052'
+  };
+  function buildBouquet(container, scale=1){
+    const svg = document.createElement('div');
+    svg.className = 'bouquet';
+    const stems = [
+      {x:74, y:40, h:120, rot:0},
+      {x:60, y:55, h:96, rot:-8},
+      {x:90, y:55, h:96, rot:9},
+    ];
+    let html = '';
+    stems.forEach((s,i)=>{
+      html += `<div class="stem" style="left:${s.x}px; top:${s.y}px; height:${s.h}px; transform:rotate(${s.rot}deg); transform-origin:bottom;"></div>`;
+    });
+    // ribbon knot
+    html += `<div class="ribbon" style="left:64px; top:140px;"></div>`;
+    // leaves
+    html += `<div class="leaf" style="left:38px; top:100px; transform:rotate(-30deg); background:${bouquetPalette.leaf};"></div>`;
+    html += `<div class="leaf" style="left:96px; top:108px; transform:rotate(35deg) scaleX(-1); background:${bouquetPalette.leaf};"></div>`;
+    // blooms — soft layered radial gradients for a painterly look
+    const blooms = [
+      {x:60, y:18, r:17, c:'#f0cdd9'},
+      {x:80, y:6,  r:20, c:'#f0cdd9'},
+      {x:100, y:20, r:16, c:'#f0cdd9'},
+      {x:42, y:34, r:13, c:'#7c6293'},
+      {x:116, y:36, r:13, c:'#c79a4d'},
+      {x:80, y:30, r:8, c:'#e7cd9b'},
+    ];
+    blooms.forEach(b=>{
+      html += `<div class="bloom" style="left:${b.x-b.r}px; top:${b.y-b.r}px; width:${b.r*2}px; height:${b.r*2}px;
+        background:radial-gradient(circle at 32% 30%, #fff8, ${b.c} 60%, ${b.c}cc 100%);
+        box-shadow:0 3px 8px rgba(43,28,44,.12);"></div>`;
+    });
+    svg.innerHTML = html;
+    container.appendChild(svg);
+  }
+  document.querySelectorAll('#screen-box, #screen-mail, #screen-messages').forEach(s=>{
+    buildBouquet(s);
+  });
+
+  // ---------- screen transitions ----------
+  function showScreen(id){
+    document.querySelectorAll('.screen').forEach(s=>{
+      s.classList.remove('active');
+      if(s.id !== id) setTimeout(()=>{ s.style.display='none'; }, 650);
+    });
+    const el = document.getElementById(id);
+    el.style.display = 'flex';
+    setTimeout(()=>el.classList.add('active'), 20);
+    if(id === 'screen-messages') startFireflies();
+  }
+
+  function spawnConfetti(anchor){
+    const rect = anchor.getBoundingClientRect();
+    const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+    const colors = ['#b6486c','#c79a4d','#7c6293','#f0cdd9','#8a3052'];
+    for(let i=0;i<28;i++){
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      const angle = (i/28)*Math.PI*2;
+      const v = 120 + Math.random()*200;
+      c.style.left = cx+'px'; c.style.top = cy+'px';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.width = c.style.height = (5+Math.random()*8)+'px';
+      c.style.animationDelay = (Math.random()*.3)+'s';
+      c.style.setProperty('--tx', (Math.cos(angle)*v)+'px');
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 3000);
+    }
+  }
+  function spawnHearts(anchor){
+    const rect = anchor.getBoundingClientRect();
+    const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+    for(let i=0;i<5;i++){
+      const h = document.createElement('div');
+      h.className = 'floating-heart';
+      h.textContent = '❤️';
+      h.style.left = (cx + (Math.random()-0.5)*90)+'px';
+      h.style.top = cy+'px';
+      h.style.animationDelay = (i*.12)+'s';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 4000);
+    }
+  }
+
+  function openBox(){
+    const box = document.getElementById('giftBox');
+    spawnConfetti(box); spawnHearts(box);
+    setTimeout(()=>showScreen('screen-mail'), 950);
+  }
+  function openEnvelope(){
+    const env = document.getElementById('envelopeEl');
+    spawnConfetti(env); spawnHearts(env);
+    setTimeout(()=>showScreen('screen-messages'), 900);
+  }
+  function goBack(){ showScreen('screen-box'); }
+
+  ['giftBox','envelopeEl'].forEach(id=>{
+    document.getElementById(id).addEventListener('keypress', e=>{
+      if(e.key==='Enter' || e.key===' '){ document.getElementById(id).click(); }
+    });
+  });
+
+  document.getElementById('screen-box').style.display = 'flex';
+</script>
+</body>
+</html>
