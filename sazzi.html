@@ -14,6 +14,9 @@
 <div id="petals"></div>
 <div id="fireflies"></div>
 
+<!-- background music, starts when the gift box is opened -->
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+
 <!-- ===== SCREEN 1: GIFT BOX ===== -->
 <div class="screen active" id="screen-box">
   <span class="eyebrow"><span class="dot"></span> July 13, 2026</span>
@@ -121,8 +124,49 @@
       <span class="icon">🎂</span>
       <p class="label">Happy birthday</p>
       <p class="headline">Today, you rest. You've earned every bit of this.</p>
-      <p class="body">Happy Birthday, Sazzi. ❤️ I don't really know the perfect words to say today, but I hope you know how much you mean to me. You've been through so much, and even though life hasn't always been easy on you, you still keep going. That's one of the many things I admire about you. Today, I just want you to slow down and enjoy your day. Forget the stress, the worries, and everything that's been weighing on your mind. You deserve a day where you can simply be happy. Thank you for being you. Thank you for letting me be part of your life. I hope this year brings you more peace, more smiles, and all the things you've been praying for. I'm always rooting for you. ❤️ Happy Birthday, my love.</p>
+      <p class="body">Happy Birthday, my love. ❤️ I don't really know the perfect words to say today, but I hope you know how much you mean to me. You've been through so much, and even though life hasn't always been easy on you, you still keep going. That's one of the many things I admire about you. Today, I just want you to slow down and enjoy your day. Forget the stress, the worries, and everything that's been weighing on your mind. You deserve a day where you can simply be happy. Thank you for being you. Thank you for letting me be part of your life. I hope this year brings you more peace, more smiles, and all the things you've been praying for. I'm always rooting for you. ❤️ Happy Birthday, my love.</p>
     </div>
+  </div>
+
+  <!-- ===== PHOTO GALLERY — framed polaroids that reveal as she scrolls ===== -->
+  <div class="gallery-header">
+    <span class="eyebrow"><span class="dot"></span> A few of my favorites</span>
+    <h3 class="heading heading--sm">Us <em></em></h3>
+  </div>
+
+  <div class="polaroid-strip">
+    <figure class="polaroid reveal" style="--rot:-6deg;">
+      <img src="pic1.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>treasuring every moment</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:4deg;">
+      <img src="pic2.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>calls that turn into forever</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:-3deg;">
+      <img src="pic3.png" alt="A memory of us" loading="lazy">
+      <figcaption>You and me always</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:5deg;">
+      <img src="pic4.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>geng geng 🥀 🥀</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:-4deg;">
+      <img src="pic5.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>you make everything better</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:2deg;">
+      <img src="pic6.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>my favorite view</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:-5deg;">
+      <img src="pic7.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>your smile is my favorite thing</figcaption>
+    </figure>
+    <figure class="polaroid reveal" style="--rot:3deg;">
+      <img src="pic8.jpg" alt="A memory of us" loading="lazy">
+      <figcaption>So beautiful</figcaption>
+    </figure>
   </div>
 
   <div class="closing">
@@ -135,150 +179,6 @@
   </div>
 </div>
 
-<script>
-  // ---------- petals ----------
-  const petalsEl = document.getElementById('petals');
-  function createPetal(){
-    const p = document.createElement('div');
-    p.className = 'petal';
-    p.style.left = Math.random()*100 + 'vw';
-    p.style.animationDuration = (9 + Math.random()*6) + 's';
-    p.style.width = p.style.height = (7 + Math.random()*6) + 'px';
-    petalsEl.appendChild(p);
-    setTimeout(()=>p.remove(), 16000);
-  }
-  for(let i=0;i<10;i++) setTimeout(createPetal, i*500);
-  setInterval(createPetal, 4200);
-
-  // ---------- fireflies (only the message screen) ----------
-  const firefliesEl = document.getElementById('fireflies');
-  let fireflyInterval = null;
-  function createFirefly(){
-    const f = document.createElement('div');
-    f.className = 'firefly';
-    f.style.left = Math.random()*100 + 'vw';
-    f.style.top = Math.random()*100 + 'vh';
-    f.style.animationDuration = (8 + Math.random()*5) + 's';
-    firefliesEl.appendChild(f);
-    setTimeout(()=>f.remove(), 12000);
-  }
-  function startFireflies(){
-    if(fireflyInterval) return;
-    for(let i=0;i<5;i++) setTimeout(createFirefly, i*900);
-    fireflyInterval = setInterval(createFirefly, 5200);
-  }
-
-  // ---------- bouquet builder (painterly, layered) ----------
-  const bouquetPalette = {
-    blooms:[
-      {c:'#f0cdd9', sizes:[26,30,24]},
-      {c:'#7c6293', sizes:[20,18]},
-      {c:'#c79a4d', sizes:[16,14]},
-    ],
-    leaf:'#7e9468', ribbon:'#8a3052'
-  };
-  function buildBouquet(container, scale=1){
-    const svg = document.createElement('div');
-    svg.className = 'bouquet';
-    const stems = [
-      {x:74, y:40, h:120, rot:0},
-      {x:60, y:55, h:96, rot:-8},
-      {x:90, y:55, h:96, rot:9},
-    ];
-    let html = '';
-    stems.forEach((s,i)=>{
-      html += `<div class="stem" style="left:${s.x}px; top:${s.y}px; height:${s.h}px; transform:rotate(${s.rot}deg); transform-origin:bottom;"></div>`;
-    });
-    // ribbon knot
-    html += `<div class="ribbon" style="left:64px; top:140px;"></div>`;
-    // leaves
-    html += `<div class="leaf" style="left:38px; top:100px; transform:rotate(-30deg); background:${bouquetPalette.leaf};"></div>`;
-    html += `<div class="leaf" style="left:96px; top:108px; transform:rotate(35deg) scaleX(-1); background:${bouquetPalette.leaf};"></div>`;
-    // blooms — soft layered radial gradients for a painterly look
-    const blooms = [
-      {x:60, y:18, r:17, c:'#f0cdd9'},
-      {x:80, y:6,  r:20, c:'#f0cdd9'},
-      {x:100, y:20, r:16, c:'#f0cdd9'},
-      {x:42, y:34, r:13, c:'#7c6293'},
-      {x:116, y:36, r:13, c:'#c79a4d'},
-      {x:80, y:30, r:8, c:'#e7cd9b'},
-    ];
-    blooms.forEach(b=>{
-      html += `<div class="bloom" style="left:${b.x-b.r}px; top:${b.y-b.r}px; width:${b.r*2}px; height:${b.r*2}px;
-        background:radial-gradient(circle at 32% 30%, #fff8, ${b.c} 60%, ${b.c}cc 100%);
-        box-shadow:0 3px 8px rgba(43,28,44,.12);"></div>`;
-    });
-    svg.innerHTML = html;
-    container.appendChild(svg);
-  }
-  document.querySelectorAll('#screen-box, #screen-mail, #screen-messages').forEach(s=>{
-    buildBouquet(s);
-  });
-
-  // ---------- screen transitions ----------
-  function showScreen(id){
-    document.querySelectorAll('.screen').forEach(s=>{
-      s.classList.remove('active');
-      if(s.id !== id) setTimeout(()=>{ s.style.display='none'; }, 650);
-    });
-    const el = document.getElementById(id);
-    el.style.display = 'flex';
-    setTimeout(()=>el.classList.add('active'), 20);
-    if(id === 'screen-messages') startFireflies();
-  }
-
-  function spawnConfetti(anchor){
-    const rect = anchor.getBoundingClientRect();
-    const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
-    const colors = ['#b6486c','#c79a4d','#7c6293','#f0cdd9','#8a3052'];
-    for(let i=0;i<28;i++){
-      const c = document.createElement('div');
-      c.className = 'confetti-piece';
-      const angle = (i/28)*Math.PI*2;
-      const v = 120 + Math.random()*200;
-      c.style.left = cx+'px'; c.style.top = cy+'px';
-      c.style.background = colors[Math.floor(Math.random()*colors.length)];
-      c.style.width = c.style.height = (5+Math.random()*8)+'px';
-      c.style.animationDelay = (Math.random()*.3)+'s';
-      c.style.setProperty('--tx', (Math.cos(angle)*v)+'px');
-      document.body.appendChild(c);
-      setTimeout(()=>c.remove(), 3000);
-    }
-  }
-  function spawnHearts(anchor){
-    const rect = anchor.getBoundingClientRect();
-    const cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
-    for(let i=0;i<5;i++){
-      const h = document.createElement('div');
-      h.className = 'floating-heart';
-      h.textContent = '❤️';
-      h.style.left = (cx + (Math.random()-0.5)*90)+'px';
-      h.style.top = cy+'px';
-      h.style.animationDelay = (i*.12)+'s';
-      document.body.appendChild(h);
-      setTimeout(()=>h.remove(), 4000);
-    }
-  }
-
-  function openBox(){
-    const box = document.getElementById('giftBox');
-    spawnConfetti(box); spawnHearts(box);
-    setTimeout(()=>showScreen('screen-mail'), 950);
-  }
-  function openEnvelope(){
-    const env = document.getElementById('envelopeEl');
-    spawnConfetti(env); spawnHearts(env);
-    setTimeout(()=>showScreen('screen-messages'), 900);
-  }
-  function goBack(){ showScreen('screen-box'); }
-
-  ['giftBox','envelopeEl'].forEach(id=>{
-    document.getElementById(id).addEventListener('keypress', e=>{
-      if(e.key==='Enter' || e.key===' '){ document.getElementById(id).click(); }
-    });
-  });
-
-  document.getElementById('screen-box').style.display = 'flex';
-</script>
+<script src="script.js"></script>
 </body>
 </html>

@@ -272,6 +272,56 @@ body::after{
   font-family:'Jost',sans-serif; font-weight:300; font-size:1.02rem; line-height:1.85; color:var(--ink-soft);
 }
 
+/* ============================================================================
+   PHOTO GALLERY — framed polaroids, revealed as she scrolls
+============================================================================ */
+.gallery-header{ text-align:center; margin:4.4rem 0 2.4rem; }
+.gallery-header .eyebrow{ background:rgba(255,255,255,.55); }
+.gallery-header .heading{ margin-bottom:0; }
+
+.polaroid-strip{
+  display:flex; flex-wrap:wrap; justify-content:center; align-items:flex-start;
+  gap:2.2rem 2.6rem; max-width:980px; width:100%; margin:0 auto;
+  padding:0 .5rem;
+}
+
+.polaroid{
+  --rot:0deg;
+  background:var(--cream);
+  padding:.9rem .9rem 1.5rem;
+  border-radius:4px;
+  box-shadow:0 14px 30px rgba(43,28,44,.16), 0 2px 6px rgba(43,28,44,.08);
+  width:220px;
+  transform:rotate(var(--rot)) translateY(46px) scale(.92);
+  opacity:0;
+  transition:opacity .8s var(--ease), transform .8s var(--ease-bounce);
+  will-change:transform, opacity;
+}
+.polaroid.in-view{
+  opacity:1;
+  transform:rotate(var(--rot)) translateY(0) scale(1);
+}
+.polaroid:hover{
+  transform:rotate(0deg) translateY(-6px) scale(1.045);
+  box-shadow:0 22px 40px rgba(43,28,44,.22), 0 4px 10px rgba(43,28,44,.1);
+  transition:transform .45s var(--ease-bounce), box-shadow .45s var(--ease);
+  z-index:5;
+}
+.polaroid img{
+  display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
+  border-radius:2px; background:var(--paper);
+  filter:saturate(1.03) contrast(1.02);
+}
+.polaroid figcaption{
+  font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:500;
+  font-size:1.02rem; color:var(--ink-soft); text-align:center;
+  margin-top:.9rem; line-height:1.35;
+}
+
+@media (max-width:560px){
+  .polaroid{ width:min(78vw,240px); }
+}
+
 .closing{
   max-width:600px; margin:3.4rem auto 0; text-align:center; padding:2.6rem 1rem 0;
   position:relative; animation:rise .8s var(--ease-bounce) .5s backwards;
